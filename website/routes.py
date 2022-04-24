@@ -127,3 +127,26 @@ def revoke_token():
 def api_me():
     user = current_token.user
     return jsonify(id=user.id, username=user.username)
+
+# "SPA" to simulate Implicit Grant Flow
+@bp.route('/client_implicit')
+def client_implicit():
+    return render_template('client_implicit.html')
+
+# Simulate application server login endpoint
+@bp.route('/api/login', methods=['POST'])
+def api_login():
+    username = request.form.get("user")
+    id = request.form.get("id")
+    access_token = request.form.get("access_token")
+
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        msg = "Username <{0}> does not exist.".format(username)
+    else:
+        if (str(user.id) != id):
+            msg = "Wrong ID provided. Username <{0}> has ID <{1}>.".format(user, user.id)
+        else:
+            msg = "Username <{0}> with ID <{1}> is being assigned to access token <{2}>.".format(user, id, access_token)
+
+    return jsonify(msg=msg)
