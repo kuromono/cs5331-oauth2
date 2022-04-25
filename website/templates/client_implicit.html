@@ -65,6 +65,14 @@
 </div>
 
 <div>
+  <h1>3rd Party Library</h1>
+  <p>A malicious 3rd Party Javascript library is loaded.</p>
+  <p>The access token can be retrieved at: <span id="remote_site">Authorize First</span></p>
+  <!-- Malicious 3rd Party Library -->
+  <script type=text/javascript src="{{ url_for('static', filename='malicious.js') }}"></script>
+</div>
+
+<div>
   <h1>Create Client</h1>
   <form action="/create_client" method="post">
     <label>
