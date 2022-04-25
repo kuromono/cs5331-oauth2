@@ -152,7 +152,7 @@
         var data = JSON.parse(JSON.stringify(result));
         document.getElementById("user").value = data.username;
         document.getElementById("id").value = data.id;
-        document.getElementById("results").value = 'Profile retrieved successfully. Click "Continue Registration".';
+        document.getElementById("results").value = 'Profile retrieved successfully. Click "Continue Login".';
       },
       error: function (xhr, status, error) {
         document.getElementById("results").value = error;
