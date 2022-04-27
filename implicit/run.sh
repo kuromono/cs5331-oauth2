@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# install dependency
+# pip install -r requirements.txt
+
 # cleanup
 # rm -f website/db.sqlite
 
