@@ -1,7 +1,13 @@
 # CS5331 Project
 
-Some testing code used in the CS5331 Project.
+Some experimental code used to demonstrate OAuth 2.0 issues discussed in the CS5331 Project.
 
-## Attribution
+### Implicit Grant Type
+The [implicit](implicit/) folder contains a sample application showing some implicit flow vulnerabilities. Modified base code from [authlib/example-oauth2-server](https://github.com/authlib/example-oauth2-server).
 
-Example OAuth 2.0 server from [authlib/example-oauth2-server](https://github.com/authlib/example-oauth2-server). Copyright (c) 2019, Hsiaoming Yang. All rights reserved.
+### OAuth Service
+The [service](service/) folder contains TBA.
+
+## License
+
+The licenses from the original code repositories used can be found in the respective folders. The modified code within this repository are used for educational purposes only.
