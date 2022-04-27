@@ -6,7 +6,8 @@ Some experimental code used to demonstrate OAuth 2.0 issues discussed in the CS5
 The [implicit](implicit/) folder contains a sample application showing some implicit flow vulnerabilities. Modified base code from [authlib/example-oauth2-server](https://github.com/authlib/example-oauth2-server).
 
 ### OAuth Service
-The [service](service/) folder contains TBA.
+The [service](service/) folder contains:
+- A POC showing Open Redirect. POC from [phrinx/oauth2-open-redirect-sample](https://github.com/phrinx/oauth2-open-redirect-sample).
 
 ## License
 
