@@ -8,6 +8,7 @@ The [implicit](implicit/) folder contains a modified sample application showing 
 ### OAuth Service
 The [service](service/) folder contains:
 - A PoC showing Open Redirect vulnerability. Original PoC from [phrinx/oauth2-open-redirect-sample](https://github.com/phrinx/oauth2-open-redirect-sample).
+- An OpenID connect server webapp with Mass Assignment vulnerability. Original server (v1.3.3) from [mitreid-connect/OpenID-Connect-Java-Spring-Server](https://github.com/mitreid-connect/OpenID-Connect-Java-Spring-Server).
 
 ## License
 
