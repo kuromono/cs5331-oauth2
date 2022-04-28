@@ -3,11 +3,11 @@
 Some experimental code used to demonstrate OAuth 2.0 issues discussed in the CS5331 Project.
 
 ### Implicit Grant Type
-The [implicit](implicit/) folder contains a sample application showing some implicit flow vulnerabilities. Modified base code from [authlib/example-oauth2-server](https://github.com/authlib/example-oauth2-server).
+The [implicit](implicit/) folder contains a modified sample application showing some implicit flow vulnerabilities. Original base code from [authlib/example-oauth2-server](https://github.com/authlib/example-oauth2-server).
 
 ### OAuth Service
 The [service](service/) folder contains:
-- A POC showing Open Redirect. POC from [phrinx/oauth2-open-redirect-sample](https://github.com/phrinx/oauth2-open-redirect-sample).
+- A PoC showing Open Redirect vulnerability. Original PoC from [phrinx/oauth2-open-redirect-sample](https://github.com/phrinx/oauth2-open-redirect-sample).
 
 ## License
 

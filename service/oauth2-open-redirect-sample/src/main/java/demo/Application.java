@@ -35,6 +35,8 @@ public class Application {
 		}
 	}
 
+	// Modify "authorization_code" in .authorizedGrantTypes() to "implicit" to return access tokens directly
+
 	@Configuration
 	@EnableAuthorizationServer
 	protected static class OAuth2Config extends AuthorizationServerConfigurerAdapter {
@@ -42,10 +44,10 @@ public class Application {
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 			clients.inMemory()
-					.withClient("clientId")
+					.withClient("SAMPLE_CLIENT_ID")
 					.authorizedGrantTypes("authorization_code").authorities("ROLE_CLIENT")
 					.scopes("read", "trust")
-					.redirectUris("http://trusted.com").resourceIds("demo")
+					.redirectUris("http://127.0.0.1:18000").resourceIds("demo")
 					.autoApprove(true);
 		}
 
