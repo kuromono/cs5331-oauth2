@@ -2,8 +2,8 @@
 
 Some experimental code used to demonstrate OAuth 2.0 issues discussed in the CS5331 Project.
 
-### Implicit Grant Type
-The [implicit](implicit/) folder contains a modified sample application showing some implicit flow vulnerabilities. Original base code from [authlib/example-oauth2-server](https://github.com/authlib/example-oauth2-server).
+### Implicit Grant Type & CSRF
+The [implicit_csrf](implicit_csrf/) folder contains a modified sample application showing some implicit flow and CSRF vulnerabilities. Original base code from [authlib/example-oauth2-server](https://github.com/authlib/example-oauth2-server).
 
 ### OAuth Service
 The [service](service/) folder contains:
