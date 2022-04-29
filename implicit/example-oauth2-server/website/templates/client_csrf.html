@@ -1,0 +1,188 @@
+<style>
+  label, h1, label > span { display: block; }
+  label { margin: 15px 0; }
+  div { border: 2px solid black; padding: 10px; margin: 10px; }
+</style>
+<div>
+	<h1>Welcome, {{ user.username }}</h1>
+</div>
+<div>
+  <h1>Authorize</h1>
+  <form action="/oauth/authorize" method="GET">
+    <label>
+      <span>Response Type</span>
+      <input name="response_type" value="code">
+    </label>
+    <label>
+      <span>Client ID</span>
+      <input name="client_id" placeholder="client_id">
+    </label>
+    <label>
+      <span>Scope</span>
+      <input name="scope" value="profile">
+    </label>
+    <button>Authorize</button>
+  </form>
+</div>
+
+<div>
+  <h1>Get Access Token</h1>
+  <p>Simulate clicking "website/callback?code=CODE"</p>
+  <form action="/oauth/token" method="POST">
+    <label>
+      <span>Grant Type</span>
+      <input name="grant_type" value="authorization_code">
+    </label>
+	<label>
+      <span>Authorization Code</span>
+      <input id="code" name="code" value="">
+    </label>
+    <label>
+      <span>Client ID</span>
+      <input name="client_id" placeholder="client_id">
+    </label>
+    <label>
+      <span>Client Secret</span>
+      <input name="client_secret" placeholder="client_secret">
+    </label>
+    <label>
+      <span>Scope</span>
+      <input name="scope" value="profile">
+    </label>
+    <button>Get Access Token</button>
+  </form>
+</div>
+
+<div>
+  <h1>Get Resource</h1>
+  <form>
+    <label>
+      <span>Access Token</span>
+      <textarea id="access_token" name="access_token" cols="30" rows="2"></textarea>
+    </label>
+	<label>
+      <span>Current User (you)</span>
+      <input id="current_user" name="current_user" value="{{ user.username }}" disabled>
+    </label>
+    <label>
+      <span>Token User ID</span>
+      <input id="id" name="id" disabled>
+    </label>
+    <label>
+      <span>Token User</span>
+      <input id="user" name="user" disabled>
+    </label>
+	<input type="button" onclick="getSession()" value="Continue Login">
+    <label>
+      <span>Results</span>
+      <textarea id="results" name="results" cols="30" rows="5"></textarea>
+    </label>
+  </form>
+</div>
+
+<div>
+  <h1>Create Client</h1>
+  <form action="/create_client" method="post">
+    <label>
+      <span>Client Name</span>
+      <input type="text" name="client_name" value="CSRF Test">
+    </label>
+    <label>
+      <span>Client URI</span>
+      <input type="url" name="client_uri" value="{{ request.url_root }}">
+    </label>
+    <label>
+      <span>Allowed Scope</span>
+      <input type="text" name="scope" value="profile">
+    </label>
+    <label>
+      <span>Redirect URIs</span>
+      <input name="redirect_uri" value="{{ request.url_root }}client_csrf">
+    </label>
+    <label>
+      <span>Allowed Grant Types</span>
+      <input name="grant_type" value="authorization_code">
+    </label>
+    <label>
+      <span>Allowed Response Types</span>
+      <input name="response_type" value="code">
+    </label>
+    <label>
+      <span>Token Endpoint Auth Method</span>
+      <select name="token_endpoint_auth_method">
+        <option value="client_secret_post">client_secret_post</option>
+      </select>
+    </label>
+    <button>Submit</button>
+  </form>
+</div>
+
+<div>
+  <a href="/client_csrf"><h1>Reset URL</h1></a>
+</div>
+
+<script type=text/javascript src="{{ url_for('static', filename='jquery-3.6.0.min.js') }}"></script>
+
+<script language="javascript" type="text/javascript">
+  function getURLfragments()
+  {
+    try {
+      var value = window.location.href.split('?')[1].split('&');
+      var key = {};
+      for (i = 0; i < value.length; i += 1)
+      {
+        var temp = value[i].split('=');
+        key[temp[0]] = temp[1];
+      }
+      document.getElementById("code").value = key.code;
+    }
+    catch(err)
+    {
+      document.getElementById("results").value = "Run Authorize First";
+    }
+  }
+  window.onload = getURLfragments();
+
+  
+  function getProfile()
+  {
+    $.ajax({
+      type: "GET",
+      url: "{{ request.url_root }}api/me",
+      headers: {
+        Authorization: 'Bearer ' + document.getElementById("access_token").value
+      },
+      dataType: 'json',
+      success: function (result, status, xhr) {
+        var data = JSON.parse(JSON.stringify(result));
+        document.getElementById("user").value = data.username;
+        document.getElementById("id").value = data.id;
+      },
+      error: function (xhr, status, error) {
+        document.getElementById("results").value = error;
+      }
+    });
+  }
+
+  function getSession()
+  {
+	getProfile();
+    $.ajax({
+      type: "POST",
+      url: "{{ request.url_root }}api/login_csrf",
+      data: {
+        id: document.getElementById("id").value,
+        user: document.getElementById("user").value,
+		current_user: document.getElementById("current_user").value,
+        access_token: document.getElementById("access_token").value
+      },
+      dataType: 'json',
+      success: function (result, status, xhr) {
+        document.getElementById("results").value = JSON.stringify(result);
+      },
+      error: function (xhr, status, error) {
+        document.getElementById("results").value = error;
+      }
+    });
+  }
+</script>

@@ -133,7 +133,7 @@ def api_me():
 def client_implicit():
     return render_template('client_implicit.html')
 
-# Simulate application server login endpoint
+# Simulate application server login endpoint (for implicit client)
 @bp.route('/api/login', methods=['POST'])
 def api_login():
     username = request.form.get("user")
@@ -148,5 +148,23 @@ def api_login():
             msg = "Wrong ID provided. Username <{0}> has ID <{1}>.".format(user, user.id)
         else:
             msg = "Username <{0}> with ID <{1}> is being assigned to access token <{2}>.".format(user, id, access_token)
+
+    return jsonify(msg=msg)
+
+# CSRF client
+@bp.route('/client_csrf')
+def client_csrf():
+    user = current_user()
+    return render_template('client_csrf.html', user=user)
+
+# Simulate application server login endpoint (for CSRF client)
+@bp.route('/api/login_csrf', methods=['POST'])
+def api_login_csrf():
+    username = request.form.get("user")
+    current_user = request.form.get("current_user")
+    id = request.form.get("id")
+    access_token = request.form.get("access_token")
+
+    msg = "<{0}> (You) are now binded to <{1}> (User ID: {2})'s access token.".format(current_user, username, id)
 
     return jsonify(msg=msg)
